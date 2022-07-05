@@ -1,5 +1,4 @@
-<div class="flex items-end justify-center px-4 pb-20 text-center 
-    sm:block sm:p-0">
+<div class="grid place-items-center h-[calc(100vh-132px)]">
 
   <div class="bg-black inline-block align-bottom bg-secondary rounded-lg text-left overflow-hidden
       shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full pb-4">
@@ -12,67 +11,55 @@
 
       <app-tabs-container>
         <app-tab tabName="Register">
-          <form>
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
             <!-- First Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">First Name</label>
-              <input type="text" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                  duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-                placeholder="Enter First Name" />
+              <app-input [control]="registerForm.controls.firstName" placeholder="Enter First Name"></app-input>
             </div>
             <!-- Last Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Last Name</label>
-              <input type="text" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                  duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-                placeholder="Enter Last Name" />
+              <app-input [control]="registerForm.controls.lastName" placeholder="Enter Last Name"></app-input>
             </div>
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input type="email" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                  duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-                placeholder="Enter Email" />
+              <app-input [control]="registerForm.controls.email" placeholder="Enter Email"></app-input>
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input type="password" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                  duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-                placeholder="Password" />
+              <app-input [control]="registerForm.controls.password" placeholder="Enter Password"></app-input>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input type="password" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                  duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-                placeholder="Confirm Password" />
+              <app-input [control]="registerForm.controls.confirmPassword" placeholder="Confirm Password"></app-input>
             </div>
-            <button type="submit" class="mt-6 block w-full bg-green-600 text-white py-1.5 px-3 rounded transition
-                hover:bg-green-500">
+            <button type="submit"
+              class="mt-6 block w-full bg-green-600 text-white py-1.5 px-3 rounded transition hover:bg-green-500 disabled:opacity-50 disabled:bg-green-600"
+              [disabled]="registerForm.invalid">
               Submit
             </button>
           </form>
         </app-tab>
 
         <app-tab tabName="Login">
-          <form>
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input type="email" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                        duration-500 focus:outline-none rounded bg-transparent
-                        focus:border-indigo-400" placeholder="Enter Email" />
+              <app-input [control]="loginForm.controls.email" placeholder="Enter Email"></app-input>
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input type="password" class="block w-full py-1.5 px-3 text-gray-200 border border-gray-400 transition
-                      duration-500 focus:outline-none rounded bg-transparent focus:border-indigo-400"
-                placeholder="Password" />
+              <app-input [control]="loginForm.controls.password" placeholder="Enter Password"></app-input>
             </div>
-            <button type="submit" class="mt-6 block w-full bg-green-600 text-white py-1.5 px-3 rounded transition
-                      hover:bg-green-500">
+            <button type="submit"
+              class="mt-6 block w-full bg-green-600 text-white py-1.5 px-3 rounded transition hover:bg-green-500 disabled:opacity-50 disabled:bg-green-600"
+              [disabled]="loginForm.invalid">
               Submit
             </button>
           </form>
