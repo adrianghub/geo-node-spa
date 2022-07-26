@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@app/core/auth/service/auth.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -6,5 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent {
-  constructor() {}
+  isLoggedIn$ = this.authService.getCurrentUser$().pipe(map(user => !!user));
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  logout() {
+    this.authService.logoutUser();
+  }
 }
