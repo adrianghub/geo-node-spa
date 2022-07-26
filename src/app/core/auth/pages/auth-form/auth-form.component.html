@@ -30,7 +30,8 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <app-input [control]="registerForm.controls.password" placeholder="Enter Password"></app-input>
+              <app-input type="password" [control]="registerForm.controls.password" placeholder="Enter Password">
+              </app-input>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
@@ -55,7 +56,8 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <app-input [control]="loginForm.controls.password" placeholder="Enter Password"></app-input>
+              <app-input type="password" [control]="loginForm.controls.password" placeholder="Enter Password">
+              </app-input>
             </div>
             <button type="submit"
               class="mt-6 block w-full bg-green-600 text-white py-1.5 px-3 rounded transition hover:bg-green-500 disabled:opacity-50 disabled:bg-green-600"

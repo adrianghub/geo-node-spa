@@ -4,7 +4,7 @@ import { map, Observable, take } from 'rxjs';
 import { AuthService } from '../auth/service/auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AppGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
@@ -15,10 +15,10 @@ export class AuthGuard implements CanActivate {
     return this.authService.isUserAuthorized$().pipe(
       map(res => {
         if (res) {
-          this.router.navigate(['/']);
-          return false;
+          return true;
         }
-        return true;
+        this.router.navigate(['/auth']);
+        return false;
       }),
       take(1)
     );
