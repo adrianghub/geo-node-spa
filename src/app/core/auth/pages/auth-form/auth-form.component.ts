@@ -1,8 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription, tap } from 'rxjs';
+import { delay, Subscription, tap } from 'rxjs';
 import { AuthService } from '@app/core/auth/service/auth.service';
+import { AlertSnackbarRepository } from '@app/shared/components/alert-snackbar/alert-snackbar.repository';
 
 @Component({
   selector: 'app-auth-form',
@@ -21,26 +22,31 @@ export class AuthFormComponent implements OnDestroy {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]),
   });
-  sub: Subscription | undefined;
+  sub!: Subscription;
+  isSubmitting$ = this.alertSnackbarRepo.isSubmitting$;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private alertSnackbarRepo: AlertSnackbarRepository) {}
 
   register() {
     this.router.navigate(['dashboard']);
   }
 
   login() {
+    this.alertSnackbarRepo.updateSnackbar({ message: 'Logging in progress...', show: true, isSubmitting: true });
+
     const credentials = this.loginForm.getRawValue();
 
     this.sub = this.auth
       .login(credentials)
       .pipe(
-        tap(user => console.log(user)),
-        tap(() => console.log('Login successfully!'))
+        delay(500),
+        tap(() => this.alertSnackbarRepo.updateSnackbar({ message: 'Login successful!', status: 'success', show: true })),
+        delay(500),
+        tap(() => this.alertSnackbarRepo.updateSnackbar({ message: '', status: 'pending', show: false, isSubmitting: false })),
+        tap(() => this.router.navigate(['dashboard'])),
+        tap(user => console.log(user))
       )
       .subscribe();
-
-    this.router.navigate(['dashboard']);
   }
 
   ngOnDestroy() {

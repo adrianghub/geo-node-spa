@@ -61,7 +61,7 @@
             </div>
             <button type="submit"
               class="mt-6 block w-full bg-green-600 text-white py-1.5 px-3 rounded transition hover:bg-green-500 disabled:opacity-50 disabled:bg-green-600"
-              [disabled]="loginForm.invalid">
+              [disabled]="loginForm.invalid || (isSubmitting$ | async)">
               Submit
             </button>
           </form>

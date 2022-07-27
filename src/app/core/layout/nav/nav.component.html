@@ -3,7 +3,7 @@
     <a class="text-3xl text-red-600 font-bold uppercase mr-4" [routerLink]="'/'">Logo</a>
 
     <div class="flex flex-grow items-center">
-      <ul class="flex flex-row ml-auto" *ngIf="isLoggedIn$ | async">
+      <ul class="flex flex-row ml-auto" *ngIf="(isLoggedIn$ | async) && (isSubmitting$ | async) === false">
         <li>
           <a class="px-2" [routerLink]="'/dashboard'">Dashboard</a>
         </li>
